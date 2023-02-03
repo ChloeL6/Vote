@@ -1,0 +1,6 @@
+logs/
+plugins/
+.env
+airflow/data/*.csv
+data/*.csv
+venv/
