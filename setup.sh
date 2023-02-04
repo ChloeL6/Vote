@@ -4,10 +4,10 @@
 # python3.7 -m pip install --upgrade virtualenv
 
 # create and run a python3.7 virtual env
-python3.7 -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 # install/upgrade pip
-python3.7 -m pip install --upgrade pip setuptools wheel
+python3 -m pip install --upgrade pip setuptools wheel
 
 # install Airflow in the virtual env
 AIRFLOW_VERSION=2.5.1
