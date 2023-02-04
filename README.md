@@ -1,8 +1,8 @@
-# Vote
+# Airflow
 
 #### By Chloe (Yen Chi) Le
 
-#### For this repo, I used Airflow to plan a party 
+#### A DAG to choose cake flavor
 
 <br>
 
@@ -21,10 +21,10 @@
 
 ## Description
 <p align="center">
-  <img src="/img/DAG.png" width="800"/> 
+  <img src="/img/DAG_2.png" width="800"/> 
 </p>
-
-Create a DAG and choose flavor has the most votes
+For this DAG, I used (*FileSensor*) along with (*File Sytem Connection*). The (*Sensor*) will periodically check if a file is created inside a folder. If it is, the downstream tasks will be triggered. (**Connections**) is used for storing essential information that are used by many Tasks. In this case, we will create a file path for our `data/` folder. The instruction for this is in the (**Setup**) section.
+ 
 
 ## Setup/Installation Requirements
 
@@ -55,12 +55,18 @@ Create a DAG and choose flavor has the most votes
   ```bash
   code .
   ```
-* Fetch and create .env file:
+* Within the `airflow` directory, fetch the latest `docker-compose.yaml` using `curl`, create required subdirectories, and set user id: 
   ```bash
+  cd airflow
   curl -LfO 'https://airflow.apache.org/docs/apache-airflow/stable/docker-compose.yaml'
+  mkdir ./logs ./plugins
   echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env
   ```
-* Create connection file in airflow: data_fs
+* Once `docker-compose.yaml` file is created, we need to add `/data` under volumes:
+<p align="center">
+  <img src="/img/volume.png" width="800"/> 
+</p>
+  
 * To initialize airflow, run:
   ```bash
   docker-compose up airflow-init
@@ -76,6 +82,41 @@ Create a DAG and choose flavor has the most votes
 </p>
 Leave this running, and open a new terminal tab to use the command line.
 
+* Then navigate to `http://0.0.0.0:8080/home` in your browser and log in as the default user `airflow` with password also  `airflow`.
+  
+* As mentioned above, (**Connections**) need to be defined in Airflow. Here is how to do it:
+    1. Navigate to the Airflow Admin > Connections page
+    2. Click the + to add a new Connection
+    3. Enter the following information and leave the other fields blank:
+        A. (**Connection Id**) = data_fs
+        B. (**Connection Type**) = File (path)
+        C. (**Extra**) = {"path": "/data"}
+    4. Click Save
+
+<p align="center">
+  <img src="/img/connection.png" width="800"/> 
+</p>
+
+* Once (**Connections**) is created, open DAGs tab, choose `cake_flavor` DAG and trigger it.
+
+* `wait for file` task will keep running and looking for `votes.csv` file until it created. To do that, in your terminal, change to `data` subdirectory and run the following command to download the file:
+```bash
+  ./get_data
+```
+* Go back to Airflow, you'll see the `wait_for_file` task is now successful and the next task will be running. Once all tasks are in dark green, that means the DAG has been successfully run.
+<p align="center">
+  <img src="/img/DAG_2.png" width="800"/> 
+</p>
+
+* To see the final output, click on `chosen_flavor` task and go to the `Log`
+<p align="center">
+  <img src="/img/Log.png" width="800"/> 
+</p>
+
+* To stop docker fro running and delete all volumes, run:
+  ```bash
+   docker-compose down --volumes --remove-orphans
+  ```
 
 ## Known Bugs
 
