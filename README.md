@@ -18,12 +18,13 @@
 * `requirements.txt`
   
 </br>
-cd ..
+
 ## Description
 <p align="center">
   <img src="/img/DAG_2.png" width="800"/> 
 </p>
-For this DAG, I used (*FileSensor*) along with (*File Sytem Connection*). The (*Sensor*) will periodically check if a file is created inside a folder. If it is, the downstream tasks will be triggered. (**Connections**) is used for storing essential information that are used by many Tasks. In this case, we will create a file path for our `data/` folder. The instruction for this is in the (**Setup**) section.
+
+For this DAG, I used (*FileSensor*) along with (*File System Connection*). The *Sensor* will periodically check if a file is created inside a folder. If it is, the downstream tasks will be triggered. (**Connections**) is used for storing essential information that are used by many Tasks. In this case, we will create a file path for our `data/` folder. The instruction for this is in the (**Setup**) section.
  
 
 ## Setup/Installation Requirements
