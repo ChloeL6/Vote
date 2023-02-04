@@ -18,7 +18,7 @@
 * `requirements.txt`
   
 </br>
-
+cd ..
 ## Description
 <p align="center">
   <img src="/img/DAG_2.png" width="800"/> 
@@ -115,7 +115,7 @@ Leave this running, and open a new terminal tab to use the command line.
 
 * To stop docker fro running and delete all volumes, run:
   ```bash
-   docker-compose down --volumes --remove-orphans
+  docker-compose down --volumes --remove-orphans
   ```
 
 ## Known Bugs
