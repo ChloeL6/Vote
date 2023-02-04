@@ -24,7 +24,7 @@
   <img src="/img/DAG_2.png" width="800"/> 
 </p>
 
-For this DAG, I used (*FileSensor*) along with (*File System Connection*). The *Sensor* will periodically check if a file is created inside a folder. If it is, the downstream tasks will be triggered. (**Connections**) is used for storing essential information that are used by many Tasks. In this case, we will create a file path for our `data/` folder. The instruction for this is in the (**Setup**) section.
+For this DAG, I used *FileSensor* along with *File System Connection*. The *Sensor* will periodically check if a file is created inside a folder. If it is, the downstream tasks will be triggered. **Connections** is used for storing essential information that are used by many Tasks. In this case, we will create a file path for our `data/` folder. The instruction for this is in the **Setup** section.
  
 
 ## Setup/Installation Requirements
@@ -85,20 +85,20 @@ Leave this running, and open a new terminal tab to use the command line.
 
 * Then navigate to `http://0.0.0.0:8080/home` in your browser and log in as the default user `airflow` with password also  `airflow`.
   
-* As mentioned above, (**Connections**) need to be defined in Airflow. Here is how to do it:
+* As mentioned above, **Connections** need to be defined in Airflow. Here is how to do it:
     1. Navigate to the Airflow Admin > Connections page
     2. Click the + to add a new Connection
     3. Enter the following information and leave the other fields blank:
-        A. (**Connection Id**) = data_fs
-        B. (**Connection Type**) = File (path)
-        C. (**Extra**) = {"path": "/data"}
+        A. **Connection Id** = data_fs
+        B. **Connection Type** = File (path)
+        C. **Extra** = {"path": "/data"}
     4. Click Save
 
 <p align="center">
   <img src="/img/connection.png" width="800"/> 
 </p>
 
-* Once (**Connections**) is created, open DAGs tab, choose `cake_flavor` DAG and trigger it.
+* Once **Connections** is created, open DAGs tab, choose `cake_flavor` DAG and trigger it.
 
 * `wait for file` task will keep running and looking for `votes.csv` file until it created. To do that, in your terminal, change to `data` subdirectory and run the following command to download the file:
 ```bash
