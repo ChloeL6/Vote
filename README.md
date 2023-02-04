@@ -114,7 +114,7 @@ Leave this running, and open a new terminal tab to use the command line.
   <img src="/img/Log.png" width="800"/> 
 </p>
 
-* To stop docker fro running and delete all volumes, run:
+* To stop docker from running, run `Crl+C`. To delete all volumes, run:
   ```bash
   docker-compose down --volumes --remove-orphans
   ```
