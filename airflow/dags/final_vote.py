@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 import pandas as pd
 from airflow import DAG
-from airflow.decorators import dag, task
+from airflow.decorators import dag,task
 from airflow.sensors.filesystem import FileSensor
 from airflow.hooks.filesystem import FSHook
 from collections import Counter
@@ -28,18 +28,20 @@ def read_file():
     # create the full path to the votes file
     file_path = os.path.join(data_dir, VOTES_FILE_NAME)
     print(f"reading file: {file_path}")
+    # read csv
+    df = pd.read_csv(file_path, header=0)
 
-    # read csv and choose valid votes:
-    votes = pd.read_csv(file_path, header=1)
-    for option in votes:
-      if option in FLAVOR_CHOICES:
-        valid_votes.append(option)
-    return valid_votes
+    # filter valid votes
+    valid_votes_df = df[df['votes'].isin(FLAVOR_CHOICES)]
+    # convert value to list
+    valid_votes_lst = valid_votes_df['votes'].values.tolist()
+
+    return valid_votes_lst
 
 @task
 def chosen_flavor(lst):
     count_flavor = Counter(lst)
-    highest_vote = max(count_flavor)
+    highest_vote = max(count_flavor, key=count_flavor.get)
     print(f"The number of votes for each flavor are: {count_flavor}, and the winner is {highest_vote}")  
 
 @dag(
