@@ -2,9 +2,7 @@
 
 #### By Chloe (Yen Chi) Le
 
-#### A DAG to choose cake flavor
-
-<br>
+#### This repo showcases using Airflow to create a DAG, which choose the flavor has the most vote.
 
 ## Technologies Used
 
